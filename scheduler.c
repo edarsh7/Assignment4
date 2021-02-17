@@ -25,7 +25,7 @@ struct node *head = NULL;
 
 
 void insert_at_end(thread_t *);
-void delete_from_begin();
+void deleteFirst();
 int count = 0;
 */
 //=-----------------------------=
@@ -64,21 +64,21 @@ void sys_exec(thread_t *t)
 
 void sys_read(thread_t *t) 
 {
-  delete_from_begin();
+  deleteFirst();
   if(head != NULL)
     sim_dispatch(head->thread);
 }
 
 void sys_write(thread_t *t) 
 {
-  delete_from_begin();
+  deleteFirst();
   if(head != NULL)
     sim_dispatch(head->thread);
 }
 
 void sys_exit(thread_t *t) 
 {
-  delete_from_begin();
+  deleteFirst();
   if(head != NULL)
     sim_dispatch(head->thread);
 }
@@ -135,7 +135,7 @@ void insert_at_end(thread_t *td) {
   t->next   = NULL;
 }
 
-void delete_from_begin() {
+void deleteFirst() {
 
   struct node *t;
 
