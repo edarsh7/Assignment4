@@ -3,6 +3,7 @@
  * calls you when something interesting happens.
  */
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "simulator.h"
 #include "scheduler.h"
@@ -20,7 +21,7 @@ typedef struct node {
 
 
 struct node *head = NULL;
-void insert_at_end(int);
+void insert_at_end(thread_t *);
 void delete_from_begin();
 int count = 0;
 //=-----------------------------=
