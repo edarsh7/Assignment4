@@ -31,10 +31,7 @@ thread_t * top_of_list();
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
-  while(true)
-  {
-    printf("f ");
-  }
+  
 }
 
 void sim_tick() { }
@@ -42,6 +39,7 @@ void sim_tick() { }
 void sys_exec(thread_t *t) 
 {
   insert_at_end(t);
+  sim_dispatch(head->thread);
 }
 
 void sys_read(thread_t *t) 
@@ -56,7 +54,8 @@ printf("4");
 
 void sys_exit(thread_t *t) 
 { 
-  printf("5");
+  if(head != NULL)
+    sim_dispatch(head->thread);
 }
 
 void io_complete(thread_t *t) 
