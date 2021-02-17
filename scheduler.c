@@ -43,7 +43,7 @@ void td_completed(thread_t *);
 void io_completed(thread_t *);
 void wait_time(thread_t *);
 void turnaround(thread_t *);
-void left_queue(thread_t *)
+void left_queue(thread_t *);
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
