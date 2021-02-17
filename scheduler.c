@@ -140,7 +140,7 @@ stats_t *stats() {
   int i = 0;
   while(temp != NULL)
   {
-    if(i = 0)
+    if(i == 0)
     {
       temp = temp->next;
       i = 1;
