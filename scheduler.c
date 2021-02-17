@@ -81,7 +81,7 @@ void sys_write(thread_t *t)
 void sys_exit(thread_t *t) 
 {
   td_running_start(head->thread);
-  printf("tid: %d    s1: %d    s2: %d  \n", head->thread->tid, head->start1, head->start2);
+  printf("tid: %d    s1: %d    s2: %d  \n", head->thread->tid, head->start1, head->completed);
   td_completed(t);
   delete_from_begin();
   if(head != NULL)
@@ -212,6 +212,7 @@ void td_completed(thread_t *td)
 
 void td_running_start(thread_t *td)
 {
+
   struct node *temp;
   temp = td_list;
 
@@ -229,7 +230,6 @@ void td_running_start(thread_t *td)
   {
     temp->start2 = sim_time();
   }
-  
 }
 
 void io_finished(thread_t *td)
