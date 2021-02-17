@@ -163,7 +163,7 @@ void delete_from_begin() {
   }
   
   temp2 = td_list;
-  while(temp2 != NULL)
+  while(temp2->next != NULL)
   {
     if(temp2->thread->tid == head->next->thread->tid)
     {
