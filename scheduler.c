@@ -8,7 +8,7 @@
 #include "simulator.h"
 #include "scheduler.h"
 
-
+typedef enum { false, true } bool;
 
 /*
  code for list implementation borrowed from https://www.programmingsimplified.com/c/data-structures/c-program-implement-linked-list
