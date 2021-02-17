@@ -80,8 +80,8 @@ stats_t *stats() {
   stats->tstats[0].waiting_time = 5;
 
   stats->thread_count = thread_count;
-  stats->turnaround_time = 3;
-  stats->waiting_time = 5;
+  stats->turnaround_time = 8;
+  stats->waiting_time = 0;
   return stats;
 }
 
