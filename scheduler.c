@@ -117,7 +117,7 @@ stats_t *stats() {
   struct node *temp = td_list;
   while(temp != NULL)
   {
-      printf("tid: %d    ta: %d  wt: %d   \n", td_list->thread->tid, td_list->turnaround, td_list->wait_time);
+    printf("tid: %d    ta: %d  wt: %d   \n", temp->thread->tid, temp->turnaround, temp->wait_time);
     temp = temp->next;
   }
 
