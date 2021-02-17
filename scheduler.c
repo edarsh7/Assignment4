@@ -40,6 +40,7 @@ void sim_tick() { }
 
 void sys_exec(thread_t *t) 
 {
+  printf("idk");
   count++;
   insert_at_end(t, head);
   
@@ -101,7 +102,6 @@ stats_t *stats() {
 
 void insert_at_end(thread_t *td, struct node * top) {
   struct node *t, *temp;
-  printf("idk");
   t = (struct node*)malloc(sizeof(struct node));
   t->thread = td;
 
