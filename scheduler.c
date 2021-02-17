@@ -43,7 +43,6 @@ void td_completed(thread_t *);
 void io_finished(thread_t *);
 void wait_time(thread_t *);
 void turnaround(thread_t *);
-void time_in_waiting();
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
@@ -216,29 +215,6 @@ void td_completed(thread_t *td)
   }
 
   temp->completed = sim_time();
-}
-
-void time_in_waiting()
-{
-  struct node *temp, *temp2;
-  
-  temp = head;
-  while(temp != NULL)
-  {
-    printf("huh");
-    temp2 = td_list;
-    while(temp2 != NULL)
-    {
-      printf("x");
-      if(temp->thread->tid == temp2->thread->tid)
-      {
-        temp2->wait_time++;
-        temp2=temp2->next;
-        break;
-      }
-      temp=temp->next;
-    }
-  }
 }
 
 void io_finished(thread_t *td)
