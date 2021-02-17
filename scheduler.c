@@ -58,7 +58,7 @@ void sys_exec(thread_t *t)
   insert_td_list(t);
   td_arrival(t);
 
-  td_running_start(t);
+  td_running_start(head->thread);
   sim_dispatch(head->thread);
 
 }
