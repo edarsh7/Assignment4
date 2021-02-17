@@ -39,7 +39,7 @@ int count = 0;
 
 void td_arrival(thread_t *);
 void td_completed(thread_t *);
-void td_running_start(thread_t *);
+
 void io_finished(thread_t *);
 void wait_time(thread_t *);
 void turnaround(thread_t *);
@@ -99,7 +99,7 @@ void io_complete(thread_t *t)
   time_in_waiting();
   insert_at_end(t);
   
-  td_running_start(t);
+
   if(head != NULL)
     sim_dispatch(head->thread);
 }
