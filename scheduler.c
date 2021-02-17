@@ -76,8 +76,8 @@ stats_t *stats() {
   stats->tstats = malloc(sizeof(stats_t) * thread_count);
 
   stats->tstats[0].tid = 1;
-  stats->tstats[0].turnaround_time = 3;
-  stats->tstats[0].waiting_time = 5;
+  stats->tstats[0].turnaround_time = 8;
+  stats->tstats[0].waiting_time = 0;
 
   stats->thread_count = thread_count;
   stats->turnaround_time = 8;
