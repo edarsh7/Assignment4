@@ -43,6 +43,7 @@ void td_running_start(thread_t *);
 void io_finished(thread_t *);
 void wait_time(thread_t *);
 void turnaround(thread_t *);
+void time_in_waiting();
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
