@@ -43,6 +43,7 @@ void td_completed(thread_t *);
 void io_completed(thread_t *);
 void wait_time(thread_t *);
 void turnaround(thread_t *);
+void left_queue(thread_t *)
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
@@ -60,7 +61,7 @@ void sys_exec(thread_t *t)
   td_arrival(t);
 
   sim_dispatch(head->thread);
-
+  left_queue(head->thread);
 }
 
 void sys_read(thread_t *t) 
@@ -71,6 +72,7 @@ void sys_read(thread_t *t)
 
   if(head != NULL)
     sim_dispatch(head->thread);
+    left_queue(head->thread);
 }
 
 void sys_write(thread_t *t) 
@@ -81,6 +83,7 @@ void sys_write(thread_t *t)
 
   if(head != NULL)
     sim_dispatch(head->thread);
+    left_queue(head->thread);
 }
 
 void sys_exit(thread_t *t) 
@@ -91,6 +94,8 @@ void sys_exit(thread_t *t)
   
   if(head != NULL)
     sim_dispatch(head->thread);
+    if(head->next != NULL)
+      left_queue(head->thread);
 }
 
 void io_complete(thread_t *t) 
@@ -101,6 +106,7 @@ void io_complete(thread_t *t)
   io_completed(t);
   if(head != NULL)
     sim_dispatch(head->thread);
+    left_queue(head->thread);
 }
 
 void io_starting(thread_t *t) 
@@ -268,3 +274,23 @@ void turnaround(thread_t *td)
   temp->turnaround = temp->completed - temp->arrival + 1;
 }
 
+void left_queue(thread_t *td)
+{
+  struct node *temp;
+  temp = td_list;
+
+  while(temp->thread->tid != td->tid)
+  {
+    temp = temp->next;
+  }
+
+  if(temp->first_time)
+  {
+    temp->start1 = sim_time();
+  }
+  else
+  {
+    temp->start2 = sim_time();
+  }
+  
+}
