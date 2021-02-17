@@ -145,6 +145,7 @@ stats_t *stats() {
       temp = temp->next;
       continue;
     }
+    temp->start1++;
     turnaround(temp->thread);
     printf("tid: %d    s1: %d    s2: %d   io_done: %d \n", temp->thread->tid,temp->start1, temp->start2, temp->io_done);
     temp = temp->next;
