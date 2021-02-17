@@ -81,6 +81,7 @@ void sys_write(thread_t *t)
 void sys_exit(thread_t *t) 
 {
   td_running_start(head->thread);
+  print("tid: %d    s1: %d    s2: %d  \n", head->thread->tid, head->start1, head->start2);
   td_completed(t);
   delete_from_begin();
   if(head != NULL)
