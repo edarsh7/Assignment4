@@ -126,6 +126,7 @@ stats_t *stats() {
   while(temp != NULL)
   {
     turnaround(temp->thread);
+    printf("s1: %d    s2: %d   \n", temp->start1, temp->start2);
     temp = temp->next;
   }
 
