@@ -108,7 +108,7 @@ void insert_at_end(thread_t *td, struct node * top) {
   if (top == NULL) {
     top = t;
     top->next = NULL;
-    top->prev = NULL;
+    
     return;
   }
 
