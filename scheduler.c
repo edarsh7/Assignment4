@@ -78,7 +78,7 @@ void sys_write(thread_t *t)
 void sys_exit(thread_t *t) 
 {
   td_running_start(head->thread);
-  printf("tid: %d    s1: %d     \n", td_list->thread->tid, td_list->completed);
+  printf("tid: %d    ta: %d  wt: %d   \n", td_list->thread->tid, td_list->turnaround, td_list->wait_time);
   td_completed(t);
   delete_from_begin();
   if(head != NULL)
