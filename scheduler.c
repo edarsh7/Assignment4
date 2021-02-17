@@ -78,7 +78,7 @@ void sys_write(thread_t *t)
 void sys_exit(thread_t *t) 
 {
   td_running_start(head->thread);
-  printf("tid: %d    s1: %d    s2: %d  \n", head->thread->tid, head->start1, head->completed);
+  printf("tid: %d    s1: %d     \n", td_list->thread->tid, td_list->completed);
   td_completed(t);
   delete_from_begin();
   if(head != NULL)
@@ -179,6 +179,9 @@ void insert_td_list(thread_t *td) {
   t->next   = NULL;
 }
 
+
+//--------------------------------------------------------------------
+//==================================================================
 void td_arrival(thread_t *td)
 {
   struct node *temp;
