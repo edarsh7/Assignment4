@@ -31,6 +31,7 @@ thread_t * top_of_list();
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
+  if(head != NULL);
   sim_dispatch(head->thread);
 }
 
