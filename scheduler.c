@@ -136,8 +136,15 @@ stats_t *stats() {
   stats->waiting_time = 0;
 
   struct node *temp = td_list;
+
+  int i = 0;
   while(temp != NULL)
   {
+    if(i = 0)
+    {
+      temp = temp->next;
+      continue;
+    }
     turnaround(temp->thread);
     printf("tid: %d    s1: %d    s2: %d   io_done: %d \n", temp->thread->tid,temp->start1, temp->start2, temp->io_done);
     temp = temp->next;
@@ -291,7 +298,7 @@ void left_queue(thread_t *td)
     temp = temp->next;
   }
 
-  if(temp->first_time)
+  if(temp->first_time == true)
   {
     temp->start1 = sim_time();
     temp->first_time = false;
@@ -300,5 +307,4 @@ void left_queue(thread_t *td)
   {
     temp->start2 = sim_time();
   }
-  
 }
