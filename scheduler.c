@@ -26,10 +26,15 @@ void delete_from_begin();
 int count = 0;
 //=-----------------------------=
 
+thread_t * top_of_list();
 
 
 
-void scheduler(enum algorithm algorithm, unsigned int quantum) { }
+
+void scheduler(enum algorithm algorithm, unsigned int quantum) 
+{ 
+  sim_dispatch(top_of_list());
+}
 
 void sim_tick() { }
 
@@ -80,6 +85,7 @@ void insert_at_end(thread_t *td) {
 }
 
 void delete_from_begin() {
+
   struct node *t;
 
 
@@ -93,4 +99,9 @@ void delete_from_begin() {
   head = t;
   count--;
 
+}
+
+thread_t * top_of_list()
+{
+  return head->thread;
 }
