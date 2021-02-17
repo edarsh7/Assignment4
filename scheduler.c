@@ -53,7 +53,7 @@ void sim_tick() { }
 
 void sys_exec(thread_t *t) 
 {
-  time_in_waiting();
+
   count++;
   insert_at_end(t);
   insert_td_list(t);
@@ -65,7 +65,7 @@ void sys_exec(thread_t *t)
 
 void sys_read(thread_t *t) 
 {
-  time_in_waiting();
+  
   delete_from_begin();
 
 
@@ -75,7 +75,7 @@ void sys_read(thread_t *t)
 
 void sys_write(thread_t *t) 
 {
-  time_in_waiting();
+  
   delete_from_begin();
 
 
@@ -85,7 +85,7 @@ void sys_write(thread_t *t)
 
 void sys_exit(thread_t *t) 
 {
-  time_in_waiting();
+  
   td_completed(t);
   delete_from_begin();
   
@@ -95,7 +95,7 @@ void sys_exit(thread_t *t)
 
 void io_complete(thread_t *t) 
 {
-  time_in_waiting();
+  
   insert_at_end(t);
   
 
@@ -264,4 +264,10 @@ void turnaround(thread_t *td)
   }
 
   temp->turnaround = temp->completed - temp->arrival + 1;
+}
+
+
+void leave_ready_q(thread_t *t)
+{
+  
 }
