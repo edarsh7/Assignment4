@@ -38,6 +38,7 @@ void sim_tick() { }
 
 void sys_exec(thread_t *t) 
 {
+  printf("%d ", t->tid);
   insert_at_end(t, sim_time());
   sim_dispatch(head->thread);
 }
@@ -54,7 +55,6 @@ void sys_read(thread_t *t)
 void sys_write(thread_t *t) 
 {
   delete_from_begin();
-
 
   if(head != NULL)
     sim_dispatch(head->thread);
