@@ -294,6 +294,7 @@ void left_queue(thread_t *td)
   if(temp->first_time)
   {
     temp->start1 = sim_time();
+    temp->first_time = false;
   }
   else
   {
