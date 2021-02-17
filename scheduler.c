@@ -98,7 +98,7 @@ void io_complete(thread_t *t)
   
   insert_at_end(t);
   
-
+  io_finished(t);
   if(head != NULL)
     sim_dispatch(head->thread);
 }
@@ -126,7 +126,7 @@ stats_t *stats() {
   while(temp != NULL)
   {
     turnaround(temp->thread);
-    printf("tid: %d    s1: %d    s2: %d   \n", temp->thread->tid,temp->start1, temp->start2);
+    printf("tid: %d    s1: %d    s2: %d   io_done: %d \n", temp->thread->tid,temp->start1, temp->start2, temp->io_done);
     temp = temp->next;
   }
 
