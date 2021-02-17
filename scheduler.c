@@ -17,14 +17,12 @@
 typedef struct node {
     thread_t * thread;
     struct node * next;
-    int arrival;
-    int burst;
 } node;
 
 
 struct node *head = NULL;
-struct node *io_head = NULL;
-void insert_at_end(thread_t *, int);
+
+void insert_at_end(thread_t *);
 void delete_from_begin();
 int count = 0;
 //=-----------------------------=
@@ -38,7 +36,7 @@ void sim_tick() { }
 
 void sys_exec(thread_t *t) 
 {
-  insert_at_end(t, sim_time());
+  insert_at_end(t);
   sim_dispatch(head->thread);
 }
 
@@ -63,8 +61,6 @@ void sys_exit(thread_t *t)
 
 void io_complete(thread_t *t) 
 {
-  insert_at_end(t, sim_time());
-  
   if(head != NULL)
     sim_dispatch(head->thread);
 }
@@ -91,12 +87,11 @@ stats_t *stats() {
 }
 
 
-void insert_at_end(thread_t *td, int arrived) {
+void insert_at_end(thread_t *td) {
   struct node *t, *temp;
 
   t = (struct node*)malloc(sizeof(struct node));
   t->thread = td;
-  t->arrival = arrived;
   count++;
 
   if (head == NULL) {
