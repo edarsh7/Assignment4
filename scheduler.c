@@ -233,7 +233,10 @@ void time_in_waiting()
       if(temp->thread->tid == temp2->thread->tid)
       {
         temp2->wait_time++;
+        temp2=temp2->next;
+        break;
       }
+      temp=temp->next;
     }
   }
 }
