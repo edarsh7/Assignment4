@@ -31,7 +31,10 @@ thread_t * top_of_list();
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
- printf("1");
+  while(true)
+  {
+    printf("f ");
+  }
 }
 
 void sim_tick() { }
