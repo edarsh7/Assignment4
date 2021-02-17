@@ -24,7 +24,7 @@ struct node *head = NULL;
 struct node *td_list = NULL;
 
 void insert_at_end(thread_t *);
-void insert_at_end2(thread_t *);
+void insert_td_list(thread_t *);
 void delete_from_begin();
 int count = 0;
 //=-----------------------------=
@@ -42,7 +42,7 @@ void sys_exec(thread_t *t)
 {
   count++;
   insert_at_end(t);
-  
+  insert_td_list(t);
   sim_dispatch(head->thread);
 }
 
@@ -134,7 +134,7 @@ void delete_from_begin() {
 }
 
 
-void insert_at_end2(thread_t *td) {
+void insert_td_list(thread_t *td) {
   struct node *t, *temp;
 
   t = (struct node*)malloc(sizeof(struct node));
