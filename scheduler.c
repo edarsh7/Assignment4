@@ -31,31 +31,41 @@ thread_t * top_of_list();
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
-  if(head != NULL)
-  {
-    printf("yes");
-  }
+ printf("1");
 }
 
 void sim_tick() { }
 
 void sys_exec(thread_t *t) 
 {
-  insert_at_end(t);
+  printf("2");
 }
 
-void sys_read(thread_t *t) { }
+void sys_read(thread_t *t) 
+{ 
+printf("3");
+}
 
-void sys_write(thread_t *t) { }
+void sys_write(thread_t *t) 
+{
+printf("4");
+}
 
 void sys_exit(thread_t *t) 
 { 
-  delete_from_begin();
+  printf("5");
 }
 
-void io_complete(thread_t *t) { }
+void io_complete(thread_t *t) 
+{ printf("6");
 
-void io_starting(thread_t *t) { }
+}
+
+void io_starting(thread_t *t) 
+{ 
+printf("7");
+}
+
 
 stats_t *stats() { 
   int i = 0; // Remove - only here to fail code warnings check
