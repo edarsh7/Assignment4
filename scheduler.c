@@ -99,8 +99,7 @@ void sys_exit(thread_t *t)
   if(head != NULL)
   {
     sim_dispatch(head->thread);
-    if(head->next != NULL)
-      left_queue(head->thread);
+    left_queue(head->thread);
   }
 }
 
