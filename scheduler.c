@@ -171,6 +171,7 @@ void delete_from_begin() {
       temp2->start1 = sim_time();
       break;
     }
+    temp2 = temp2->next;
   }
 
   t = head->next;
