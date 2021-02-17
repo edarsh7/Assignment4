@@ -84,7 +84,6 @@ void delete_from_begin() {
 
 
   if (head == NULL) {
-    printf("Linked list is empty.\n");
     return;
   }
 
@@ -94,5 +93,4 @@ void delete_from_begin() {
   head = t;
   count--;
 
-  printf("%d deleted from the beginning successfully.\n", n);
 }
