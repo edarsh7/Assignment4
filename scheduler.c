@@ -261,7 +261,7 @@ void wait_time(thread_t *td)
   if(temp->first_time == false)
   {
     int y = temp->start2 - temp->io_done;
-    temp->wait_time = x+y;
+    temp->wait_time = x+y-1;
   }
   else
   {
