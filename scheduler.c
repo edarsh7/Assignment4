@@ -40,7 +40,7 @@ int count = 0;
 void td_arrival(thread_t *);
 void td_completed(thread_t *);
 
-void io_finished(thread_t *);
+void io_completed(thread_t *);
 void wait_time(thread_t *);
 void turnaround(thread_t *);
 
@@ -98,7 +98,7 @@ void io_complete(thread_t *t)
   
   insert_at_end(t);
   
-  io_finished(t);
+  io_completed(t);
   if(head != NULL)
     sim_dispatch(head->thread);
 }
@@ -156,28 +156,21 @@ void insert_at_end(thread_t *td) {
 
 void delete_from_begin() {
 
-  struct node *t, *temp;
+  struct node *t, *temp, *temp2;
 
   if (head == NULL) {
     return;
   }
   
-  temp = td_list;
+  temp = head->next;
+  temp2 = td_list;
 
-  while(temp->thread->tid != head->thread->tid)
+  while(temp2->thread->tid != temp->thread->tid)
   {
-    temp = temp->next;
+    temp2 = temp2->next;
   }
-  if(temp->first_time)
-  {
-    temp->start1 = sim_time();
-    temp->first_time = false;
-  }
-  else
-  {
-    temp->start2 = sim_time();
-  }
-  
+
+  temp2->start1 = sim_time();
 
 
   t = head->next;
@@ -236,7 +229,7 @@ void td_completed(thread_t *td)
   temp->completed = sim_time();
 }
 
-void io_finished(thread_t *td)
+void io_completed(thread_t *td)
 {
   struct node *temp;
   temp = td_list;
