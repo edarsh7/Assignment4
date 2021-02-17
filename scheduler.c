@@ -26,9 +26,6 @@ void delete_from_begin();
 int count = 0;
 //=-----------------------------=
 
-thread_t * top_of_list();
-
-
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
   
@@ -74,8 +71,18 @@ printf("7");
 
 
 stats_t *stats() { 
-  int i = 0; // Remove - only here to fail code warnings check
-  return NULL; 
+  int thread_count = 1;
+  stats_t *stats = malloc(sizeof(stats_t));
+  stats->tstats = malloc(sizeof(stats_t) * thread_count);
+
+  stats->tstats[0].tid = 1;
+  stats->tstats[0].turnaround_time = 3;
+  stats->tstats[0].waiting_time = 5;
+
+  stats->thread_count = thread_count;
+  stats->turnaround_time = 3;
+  stats->waiting_time = 5;
+  return stats;
 }
 
 
@@ -105,22 +112,13 @@ void delete_from_begin() {
 
   struct node *t;
 
-
   if (head == NULL) {
     return;
   }
-
 
   t = head->next;
   free(head);
   head = t;
   count--;
 
-}
-
-thread_t * top_of_list()
-{
-  if(head != NULL)
-    return head->thread;
-  
 }
