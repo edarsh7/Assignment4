@@ -38,7 +38,7 @@ void sim_tick() { }
 
 void sys_exec(thread_t *t) 
 {
-  printf("2");
+  insert_at_end(t);
 }
 
 void sys_read(thread_t *t) 
