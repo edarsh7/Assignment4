@@ -137,16 +137,9 @@ stats_t *stats() {
 
   struct node *temp = td_list;
 
-  int i = 0;
+  
   while(temp != NULL)
   {
-    if(i == 0)
-    {
-      temp = temp->next;
-      i = 1;
-      continue;
-    }
-    temp->start1++;
     turnaround(temp->thread);
     printf("tid: %d    s1: %d    s2: %d   io_done: %d \n", temp->thread->tid,temp->start1, temp->start2, temp->io_done);
     temp = temp->next;
