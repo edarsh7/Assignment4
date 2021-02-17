@@ -80,7 +80,6 @@ void sys_write(thread_t *t)
 
 void sys_exit(thread_t *t) 
 {
-  td_running_start(head->thread);
   td_completed(t);
   delete_from_begin();
   if(head != NULL)
