@@ -34,7 +34,7 @@ thread_t * top_of_list();
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
   printf("idk");
-  sim_dispatch(top_of_list());
+  sim_dispatch();
   printf("idk2");
 }
 
