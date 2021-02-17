@@ -28,11 +28,7 @@ void delete_from_begin();
 int count = 0;
 //=-----------------------------=
 
-typedef struct td_info {
-  int arrival;
-  int start;
-  int 
-};
+
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
