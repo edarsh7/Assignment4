@@ -44,17 +44,12 @@ void sys_exec(thread_t *t)
 
 void sys_read(thread_t *t) 
 { 
-  delete_from_begin();
-
-
   if(head != NULL)
     sim_dispatch(head->thread);
 }
 
 void sys_write(thread_t *t) 
 {
-  delete_from_begin();
-
   if(head != NULL)
     sim_dispatch(head->thread);
 }
