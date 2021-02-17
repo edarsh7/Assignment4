@@ -17,6 +17,9 @@
 typedef struct node {
     thread_t * thread;
     struct node * next;
+    int arrival;
+    int io_start;
+    int completion;
 } node;
 
 
@@ -135,6 +138,7 @@ void delete_from_begin() {
 
 
 void insert_td_list(thread_t *td) {
+
   struct node *t, *temp;
 
   t = (struct node*)malloc(sizeof(struct node));
@@ -153,4 +157,17 @@ void insert_td_list(thread_t *td) {
 
   temp->next = t;
   t->next   = NULL;
+}
+
+void td_arrival(thread_t *td)
+{
+  struct node *temp;
+  temp = td_list;
+
+  while(temp->thread->tid != td->tid)
+  {
+    temp = temp->next;
+  }
+
+  temp->arrival = sim_time();
 }
