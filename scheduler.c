@@ -86,8 +86,8 @@ void sys_exit(thread_t *t)
   td_completed(t);
   delete_from_begin();
   
-  td_running_start(head->thread);
   if(head != NULL)
+    td_running_start(head->thread);
     sim_dispatch(head->thread);
 }
 
