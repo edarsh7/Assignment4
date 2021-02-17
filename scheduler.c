@@ -41,6 +41,7 @@ struct node *last = NULL;
 
 void insertLast(thread_t *);
 void deleteFirst();
+int count = 0;
 
 typedef struct td_info {
   int arrival;
