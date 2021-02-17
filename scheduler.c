@@ -44,12 +44,14 @@ void sys_exec(thread_t *t)
 
 void sys_read(thread_t *t) 
 { 
-printf("3");
+  if(head != NULL)
+    sim_dispatch(head->thread);
 }
 
 void sys_write(thread_t *t) 
 {
-printf("4");
+  if(head != NULL)
+    sim_dispatch(head->thread);
 }
 
 void sys_exit(thread_t *t) 
@@ -59,8 +61,9 @@ void sys_exit(thread_t *t)
 }
 
 void io_complete(thread_t *t) 
-{ printf("6");
-
+{
+  if(head != NULL)
+    sim_dispatch(head->thread);
 }
 
 void io_starting(thread_t *t) 
