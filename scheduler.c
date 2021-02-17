@@ -229,7 +229,7 @@ void time_in_waiting()
     temp2 = td_list;
     while(temp2 != NULL)
     {
-      printf("x")
+      printf("x");
       if(temp->thread->tid == temp2->thread->tid)
       {
         temp2->wait_time++;
