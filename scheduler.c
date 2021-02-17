@@ -160,7 +160,7 @@ void insertLast(thread_t *t) {
 
    link->thread = t;
 	
-   if(isEmpty()) {
+   if(head == NULL) {
       //make it the last link
       last = link;
    } else {
