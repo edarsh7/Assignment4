@@ -59,7 +59,6 @@ void sys_exec(thread_t *t)
   td_arrival(t);
   td_running_start(head->thread);
   sim_dispatch(head->thread);
-
 }
 
 void sys_read(thread_t *t) 
@@ -88,7 +87,6 @@ void sys_exit(thread_t *t)
 
 void io_complete(thread_t *t) 
 {
-  td_completed(t);
   insert_at_end(t);
   if(head != NULL)
     sim_dispatch(head->thread);
