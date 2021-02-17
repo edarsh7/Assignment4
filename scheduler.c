@@ -89,7 +89,7 @@ void sys_exit(thread_t *t)
 void io_complete(thread_t *t) 
 {
   insert_at_end(t);
-  td_running_start(head->thread);
+  
   if(head != NULL)
     sim_dispatch(head->thread);
 }
