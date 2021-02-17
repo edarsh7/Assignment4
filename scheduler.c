@@ -143,6 +143,7 @@ stats_t *stats() {
     if(i = 0)
     {
       temp = temp->next;
+      i = 1;
       continue;
     }
     temp->start1++;
