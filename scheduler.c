@@ -32,7 +32,7 @@ void delete_from_begin();
 int count = 0;
 //=-----------------------------=
 
-
+void td_arrival(thread_t *);
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
@@ -46,6 +46,7 @@ void sys_exec(thread_t *t)
   count++;
   insert_at_end(t);
   insert_td_list(t);
+  td_arrival(t);
   sim_dispatch(head->thread);
 }
 
@@ -98,6 +99,13 @@ stats_t *stats() {
   stats->thread_count = thread_count;
   stats->turnaround_time = 8;
   stats->waiting_time = 0;
+
+  int temp = count;
+  struct node *temp2 = td_list;
+  while(temp != 0){
+    printf("Arrival time for %d : %d \n", temp2->thread->tid, temp2->arrival);
+    temp--;
+  }
   return stats;
 }
 
@@ -171,3 +179,4 @@ void td_arrival(thread_t *td)
 
   temp->arrival = sim_time();
 }
+
