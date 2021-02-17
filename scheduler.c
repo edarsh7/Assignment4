@@ -17,6 +17,7 @@
 typedef struct node {
     thread_t * thread;
     struct node * next;
+    struct node * prev;
 } node;
 
 
@@ -107,6 +108,7 @@ void insert_at_end(thread_t *td, struct node * top) {
   if (top == NULL) {
     top = t;
     top->next = NULL;
+    top->prev = NULL;
     return;
   }
 
@@ -117,6 +119,7 @@ void insert_at_end(thread_t *td, struct node * top) {
 
   temp->next = t;
   t->next   = NULL;
+  t->prev   = temp;
 }
 
 void delete_from_begin() {
