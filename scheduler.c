@@ -53,20 +53,21 @@ void sim_tick() { }
 
 void sys_exec(thread_t *t) 
 {
+  time_in_waiting();
   count++;
   insert_at_end(t);
   insert_td_list(t);
   td_arrival(t);
 
-  td_running_start(head->thread);
   sim_dispatch(head->thread);
 
 }
 
 void sys_read(thread_t *t) 
 {
-
+  time_in_waiting();
   delete_from_begin();
+
 
   if(head != NULL)
     sim_dispatch(head->thread);
@@ -74,6 +75,7 @@ void sys_read(thread_t *t)
 
 void sys_write(thread_t *t) 
 {
+  time_in_waiting();
   delete_from_begin();
 
 
@@ -83,6 +85,7 @@ void sys_write(thread_t *t)
 
 void sys_exit(thread_t *t) 
 {
+  time_in_waiting();
   td_completed(t);
   delete_from_begin();
   
@@ -92,6 +95,7 @@ void sys_exit(thread_t *t)
 
 void io_complete(thread_t *t) 
 {
+  time_in_waiting();
   insert_at_end(t);
   
   td_running_start(t);
@@ -215,25 +219,21 @@ void td_completed(thread_t *td)
   temp->completed = sim_time();
 }
 
-void td_running_start(thread_t *td)
+void time_in_waiting()
 {
-
-  struct node *temp;
-  temp = td_list;
-
-  while(temp->thread->tid != td->tid)
+  struct node *temp, *temp2;
+  
+  temp = head;
+  while(temp != NULL)
   {
-    temp = temp->next;
-  }
-
-  if(temp->first_time)
-  {
-    temp->start1 = sim_time();
-    temp->first_time = false;
-  }
-  else
-  {
-    temp->start2 = sim_time();
+    temp2 = td_list;
+    while(temp2 != NULL)
+    {
+      if(temp->thread->tid == temp2->thread->tid)
+      {
+        temp2->wait_time++;
+      }
+    }
   }
 }
 
