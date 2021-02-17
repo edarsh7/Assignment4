@@ -14,18 +14,38 @@
  code for list implementation borrowed from https://www.programmingsimplified.com/c/data-structures/c-program-implement-linked-list
 */
 //=-----------------------------=
-typedef struct node {
+
+/*typedef struct node {
     thread_t * thread;
     struct node * next;
 } node;
 
 
-struct node *head = NULL;
+struct node *head = NULL; 
+
 
 void insert_at_end(thread_t *);
 void delete_from_begin();
 int count = 0;
+*/
 //=-----------------------------=
+
+struct node {
+  thread_t *td;
+   struct node *next;
+   struct node *prev;
+}node;
+
+struct node *head = NULL;
+struct node *last = NULL;
+
+void insertLast(thread_t *);
+void deleteFirst();
+
+typedef struct td_info {
+  int arrival;
+  int start;
+} td_info;
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
@@ -37,7 +57,8 @@ void sim_tick() { }
 void sys_exec(thread_t *t) 
 {
   count++;
-  insert_at_end(t);
+  insertLast(t);
+  
   sim_dispatch(head->thread);
 }
 
@@ -66,7 +87,7 @@ void io_complete(thread_t *t)
 {
 
 
-  insert_at_end(t);
+  insertLast(t);
   if(head != NULL)
     sim_dispatch(head->thread);
 }
@@ -76,7 +97,6 @@ void io_starting(thread_t *t)
   //nothing to do here but get time
 
 }
-
 
 stats_t *stats() { 
   int thread_count = count;
@@ -93,7 +113,7 @@ stats_t *stats() {
   return stats;
 }
 
-
+/*
 void insert_at_end(thread_t *td) {
   struct node *t, *temp;
 
@@ -128,4 +148,46 @@ void delete_from_begin() {
   head = t;
  
 
+}
+
+*/
+
+void insertLast(thread_t *t) {
+
+
+   //create a link
+   struct node *link = (struct node*) malloc(sizeof(struct node));
+
+   link->td = t;
+	
+   if(isEmpty()) {
+      //make it the last link
+      last = link;
+   } else {
+      //make link a new last link
+      last->next = link;     
+      
+      //mark old last node as prev of new link
+      link->prev = last;
+   }
+
+   //point last to new last node
+   last = link;
+}
+
+void deleteFirst() {
+
+   //save reference to first link
+   struct node *tempLink = head;
+	
+   //if only one link
+   if(head->next == NULL){
+      last = NULL;
+   } else {
+      head->next->prev = NULL;
+   }
+	
+   head = head->next;
+   //return the deleted link
+  free(tempLink);
 }
