@@ -127,8 +127,6 @@ stats_t *stats() {
   while(temp != NULL)
   {
     turnaround(temp->thread);
-    wait_time(temp->thread);
-    printf("tid: %d    ta: %d  wt: %d   \n", temp->thread->tid, temp->turnaround, temp->start1);
     temp = temp->next;
   }
 
