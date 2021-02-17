@@ -65,6 +65,7 @@ void sys_exec(thread_t *t)
 
 void sys_read(thread_t *t) 
 {
+
   delete_from_begin();
 
   if(head != NULL)
@@ -122,7 +123,7 @@ stats_t *stats() {
   {
     turnaround(temp->thread);
     wait_time(temp->thread);
-    printf("tid: %d    ta: %d  wt: %d   \n", temp->thread->tid, temp->turnaround, temp->start1);
+    printf("tid: %d    ta: %d  wt: %d   \n", temp->thread->tid, temp->turnaround, temp->start2);
     temp = temp->next;
   }
 
