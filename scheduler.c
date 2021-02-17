@@ -31,7 +31,7 @@ int count = 0;
 //=-----------------------------=
 
 struct node {
-  thread_t *td;
+  thread_t *thread;
    struct node *next;
    struct node *prev;
 }node;
@@ -158,7 +158,7 @@ void insertLast(thread_t *t) {
    //create a link
    struct node *link = (struct node*) malloc(sizeof(struct node));
 
-   link->td = t;
+   link->thread = t;
 	
    if(isEmpty()) {
       //make it the last link
