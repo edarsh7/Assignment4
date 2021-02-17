@@ -15,7 +15,7 @@
 */
 //=-----------------------------=
 typedef struct node {
-    thread_t thread;
+    thread_t * thread;
     struct node * next;
 } node;
 
