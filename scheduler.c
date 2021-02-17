@@ -164,14 +164,14 @@ void delete_from_begin() {
   
   temp = head->next;
   temp2 = td_list;
-
-  while(temp2->thread->tid != temp->thread->tid)
+  while(temp2 != NULL)
   {
-    temp2 = temp2->next;
+    if(temp2->thread->tid == temp->thread->tid)
+    {
+      temp2->start1 = sim_time();
+      break;
+    }
   }
-
-  temp2->start1 = sim_time();
-
 
   t = head->next;
   free(head);
