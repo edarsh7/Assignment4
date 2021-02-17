@@ -24,8 +24,8 @@ typedef struct node {
 struct node *head = NULL; 
 struct node *td_list = NULL;
 
-void insert_at_end(thread_t *);
-void delete_from_begin();
+void insert_at_end(thread_t *, struct node *);
+void delete_from_begin(struct node *);
 int count = 0;
 //=-----------------------------=
 
@@ -41,28 +41,28 @@ void sim_tick() { }
 void sys_exec(thread_t *t) 
 {
   count++;
-  insert_at_end(t);
+  insert_at_end(t, head);
   
   sim_dispatch(head->thread);
 }
 
 void sys_read(thread_t *t) 
 {
-  delete_from_begin();
+  delete_from_begin(head);
   if(head != NULL)
     sim_dispatch(head->thread);
 }
 
 void sys_write(thread_t *t) 
 {
-  delete_from_begin();
+  delete_from_begin(head);
   if(head != NULL)
     sim_dispatch(head->thread);
 }
 
 void sys_exit(thread_t *t) 
 {
-  delete_from_begin();
+  delete_from_begin(head);
   if(head != NULL)
     sim_dispatch(head->thread);
 }
@@ -71,7 +71,7 @@ void io_complete(thread_t *t)
 {
 
 
-  insert_at_end(t);
+  insert_at_end(t, head);
   if(head != NULL)
     sim_dispatch(head->thread);
 }
@@ -99,20 +99,20 @@ stats_t *stats() {
 }
 
 
-void insert_at_end(thread_t *td) {
+void insert_at_end(thread_t *td, struct node * top) {
   struct node *t, *temp;
 
   t = (struct node*)malloc(sizeof(struct node));
   t->thread = td;
 
-  if (head == NULL) {
-    head = t;
-    head->next = NULL;
-    head->prev = NULL;
+  if (top == NULL) {
+    top = t;
+    top->next = NULL;
+    top->prev = NULL;
     return;
   }
 
-  temp = head;
+  temp = top;
 
   while (temp->next != NULL)
     temp = temp->next;
@@ -122,19 +122,17 @@ void insert_at_end(thread_t *td) {
   t->prev   = temp;
 }
 
-void delete_from_begin() {
+void delete_from_begin(struct node * top) {
 
   struct node *t;
 
-  if (head == NULL) {
+  if (top == NULL) {
     return;
   }
 
-  t = head->next;
-  free(head);
-  head = t;
- 
-
+  t = top->next;
+  free(top);
+  top = t;
 }
 
 
