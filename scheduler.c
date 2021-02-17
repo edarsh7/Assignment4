@@ -82,7 +82,6 @@ void sys_exit(thread_t *t)
   turnaround(t);
   td_completed(t);
   delete_from_begin();
-  printf("tid: %d    ta: %d  wt: %d   \n", td_list->thread->tid, td_list->turnaround, td_list->wait_time);
   if(head != NULL)
     sim_dispatch(head->thread);
 }
@@ -115,12 +114,12 @@ stats_t *stats() {
   stats->turnaround_time = 8;
   stats->waiting_time = 0;
 
-  /*struct node *temp = td_list;
+  struct node *temp = td_list;
   while(temp != NULL)
   {
-    printf("thread %d done at %d \n", temp->thread->tid, temp->completed);
+      printf("tid: %d    ta: %d  wt: %d   \n", td_list->thread->tid, td_list->turnaround, td_list->wait_time);
     temp = temp->next;
-  }*/
+  }
 
   return stats;
 }
@@ -180,7 +179,6 @@ void insert_td_list(thread_t *td) {
   temp->next = t;
   t->next   = NULL;
 }
-
 
 //--------------------------------------------------------------------
 //==================================================================
