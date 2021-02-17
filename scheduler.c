@@ -23,7 +23,7 @@ typedef struct node {
 struct node *head = NULL; 
 struct node *td_list = NULL;
 
-void insert_at_end(thread_t *);
+void insert_at_end(thread_t *, struct node *);
 void delete_from_begin();
 int count = 0;
 //=-----------------------------=
@@ -40,7 +40,7 @@ void sim_tick() { }
 void sys_exec(thread_t *t) 
 {
   count++;
-  insert_at_end(t);
+  insert_at_end(t, head);
   
   sim_dispatch(head->thread);
 }
@@ -70,7 +70,7 @@ void io_complete(thread_t *t)
 {
 
 
-  insert_at_end(t);
+  insert_at_end(t, head);
   if(head != NULL)
     sim_dispatch(head->thread);
 }
@@ -98,19 +98,19 @@ stats_t *stats() {
 }
 
 
-void insert_at_end(thread_t *td) {
+void insert_at_end(thread_t *td, struct node * top) {
   struct node *t, *temp;
 
   t = (struct node*)malloc(sizeof(struct node));
   t->thread = td;
 
-  if (head == NULL) {
-    head = t;
-    head->next = NULL;
+  if (top == NULL) {
+    top = t;
+    top->next = NULL;
     return;
   }
 
-  temp = head;
+  temp = top;
 
   while (temp->next != NULL)
     temp = temp->next;
