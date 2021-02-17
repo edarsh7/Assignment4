@@ -19,7 +19,7 @@ typedef struct node {
     struct node * next;
     int arrival;
     int io_start;
-    int completion;
+    int completed;
 } node;
 
 
@@ -33,6 +33,7 @@ int count = 0;
 //=-----------------------------=
 
 void td_arrival(thread_t *);
+void td_completed(thread_t *);
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
@@ -66,6 +67,7 @@ void sys_write(thread_t *t)
 
 void sys_exit(thread_t *t) 
 {
+  td_completed(t);
   delete_from_begin();
   if(head != NULL)
     sim_dispatch(head->thread);
@@ -100,13 +102,13 @@ stats_t *stats() {
   stats->turnaround_time = 8;
   stats->waiting_time = 0;
 
-  int temp = count;
-  struct node *temp2 = td_list;
-  while(temp != 0){
-    printf("Arrival time for %d : %d \n", temp2->thread->tid, temp2->arrival);
-    temp2 = temp2->next;
-    temp--;
+  struct node *temp = td_list;
+  while(temp->next != NULL)
+  {
+    printf("thread %d done at %d \n", temp->thread->tid, temp->completed);
+    temp = temp->next;
   }
+
   return stats;
 }
 
@@ -179,5 +181,18 @@ void td_arrival(thread_t *td)
   }
 
   temp->arrival = sim_time();
+}
+
+void td_completed(thread_t *td)
+{
+  struct node *temp;
+  temp = td_list;
+
+  while(temp->thread->tid != td->tid)
+  {
+    temp = temp->next;
+  }
+
+  temp->completed = sim_time();
 }
 
