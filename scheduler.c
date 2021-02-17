@@ -101,5 +101,7 @@ void delete_from_begin() {
 
 thread_t * top_of_list()
 {
-  return head->thread;
+  if(head != NULL)
+    return head->thread;
+  
 }
