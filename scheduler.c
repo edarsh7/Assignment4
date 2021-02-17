@@ -24,6 +24,7 @@ struct node *head = NULL;
 struct node *td_list = NULL;
 
 void insert_at_end(thread_t *);
+void insert_at_end2(thread_t *);
 void delete_from_begin();
 int count = 0;
 //=-----------------------------=
@@ -130,8 +131,26 @@ void delete_from_begin() {
   t = head->next;
   free(head);
   head = t;
- 
-
 }
 
 
+void insert_at_end2(thread_t *td) {
+  struct node *t, *temp;
+
+  t = (struct node*)malloc(sizeof(struct node));
+  t->thread = td;
+
+  if (td_list == NULL) {
+    td_list = t;
+    td_list->next = NULL;
+    return;
+  }
+
+  temp = td_list;
+
+  while (temp->next != NULL)
+    temp = temp->next;
+
+  temp->next = t;
+  t->next   = NULL;
+}
