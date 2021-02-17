@@ -60,8 +60,8 @@ void sys_exec(thread_t *t)
   insert_td_list(t);
   td_arrival(t);
 
-  sim_dispatch(head->thread);
   left_queue(head->thread);
+  sim_dispatch(head->thread);
 }
 
 void sys_read(thread_t *t) 
@@ -72,8 +72,8 @@ void sys_read(thread_t *t)
 
   if(head != NULL)
   {
-    sim_dispatch(head->thread);
     left_queue(head->thread);
+    sim_dispatch(head->thread);
   }
 }
 
@@ -85,8 +85,8 @@ void sys_write(thread_t *t)
 
   if(head != NULL)
   {
-    sim_dispatch(head->thread);
     left_queue(head->thread);
+    sim_dispatch(head->thread);
   }
 }
 
@@ -98,8 +98,8 @@ void sys_exit(thread_t *t)
   
   if(head != NULL)
   {
-    sim_dispatch(head->thread);
     left_queue(head->thread);
+    sim_dispatch(head->thread);
   }
 }
 
@@ -111,8 +111,8 @@ void io_complete(thread_t *t)
   io_completed(t);
   if(head != NULL)
   {
-    sim_dispatch(head->thread);
     left_queue(head->thread);
+    sim_dispatch(head->thread);
   }
 }
 
