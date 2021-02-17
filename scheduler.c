@@ -155,11 +155,29 @@ void insert_at_end(thread_t *td) {
 
 void delete_from_begin() {
 
-  struct node *t;
+  struct node *t, *temp;
 
   if (head == NULL) {
     return;
   }
+  
+  temp = td_list;
+
+  while(temp->thread->tid != head->thread->tid)
+  {
+    temp = temp->next;
+  }
+  if(temp->first_time)
+  {
+    temp->start1 = sim_time();
+    temp->first_time = false;
+  }
+  else
+  {
+    temp->start2 = sim_time();
+  }
+  
+
 
   t = head->next;
   free(head);
@@ -266,8 +284,3 @@ void turnaround(thread_t *td)
   temp->turnaround = temp->completed - temp->arrival + 1;
 }
 
-
-void leave_ready_q(thread_t *t)
-{
-  
-}
