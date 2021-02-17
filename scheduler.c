@@ -118,8 +118,8 @@ void insert_at_end(thread_t *td, struct node * top) {
     temp = temp->next;
 
   temp->next = t;
+  t->prev = temp;
   t->next   = NULL;
-  t->prev   = temp;
 }
 
 void delete_from_begin() {
