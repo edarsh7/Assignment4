@@ -44,7 +44,7 @@ void sys_exec(thread_t *t)
 
 void sys_read(thread_t *t) 
 { 
-
+  delete_from_begin();
 
 
   if(head != NULL)
@@ -53,7 +53,7 @@ void sys_read(thread_t *t)
 
 void sys_write(thread_t *t) 
 {
-
+  delete_from_begin();
 
 
   if(head != NULL)
