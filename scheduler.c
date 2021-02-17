@@ -156,22 +156,12 @@ void insert_at_end(thread_t *td) {
 
 void delete_from_begin() {
 
-  struct node *t, *temp2;
+  struct node *t;
 
   if (head == NULL) {
     return;
   }
   
-  temp2 = td_list;
-  while(temp2->next != NULL)
-  {
-    if(temp2->thread->tid == head->next->thread->tid)
-    {
-      temp2->start1 = sim_time();
-      break;
-    }
-    temp2 = temp2->next;
-  }
 
   t = head->next;
   free(head);
