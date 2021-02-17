@@ -98,15 +98,15 @@ stats_t *stats() {
 }
 
 
-void insert_at_end(thread_t *td, struct node * top) {
+void insert_at_end(thread_t *td) {
   struct node *t, *temp;
 
   t = (struct node*)malloc(sizeof(struct node));
   t->thread = td;
 
-  if (top == NULL) {
-    top = t;
-    top->next = NULL;
+  if (head == NULL) {
+    head = t;
+    head->next = NULL;
     return;
   }
 
