@@ -17,36 +17,45 @@
 typedef struct node {
     thread_t * thread;
     struct node * next;
+    int arrival;
+    int burst;
 } node;
 
 
 struct node *head = NULL;
-void insert_at_end(thread_t *);
+struct node *io_head = NULL;
+void insert_at_end(thread_t *, int);
 void delete_from_begin();
 int count = 0;
 //=-----------------------------=
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
-  
+// nothing yet?
 }
 
 void sim_tick() { }
 
 void sys_exec(thread_t *t) 
 {
-  insert_at_end(t);
+  insert_at_end(t, sim_time());
   sim_dispatch(head->thread);
 }
 
 void sys_read(thread_t *t) 
 { 
+
+
+
   if(head != NULL)
     sim_dispatch(head->thread);
 }
 
 void sys_write(thread_t *t) 
 {
+
+
+
   if(head != NULL)
     sim_dispatch(head->thread);
 }
@@ -60,18 +69,20 @@ void sys_exit(thread_t *t)
 
 void io_complete(thread_t *t) 
 {
+  //insert_at_end(t, sim_time());
+  
   if(head != NULL)
     sim_dispatch(head->thread);
 }
 
 void io_starting(thread_t *t) 
 { 
-printf("7");
+
 }
 
 
 stats_t *stats() { 
-  int thread_count = 1;
+  int thread_count = count;
   stats_t *stats = malloc(sizeof(stats_t));
   stats->tstats = malloc(sizeof(stats_t) * thread_count);
 
@@ -86,11 +97,12 @@ stats_t *stats() {
 }
 
 
-void insert_at_end(thread_t *td) {
+void insert_at_end(thread_t *td, int arrived) {
   struct node *t, *temp;
 
   t = (struct node*)malloc(sizeof(struct node));
   t->thread = td;
+  t->arrival = arrived;
   count++;
 
   if (head == NULL) {
