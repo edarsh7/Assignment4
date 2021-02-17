@@ -104,6 +104,7 @@ stats_t *stats() {
   struct node *temp2 = td_list;
   while(temp != 0){
     printf("Arrival time for %d : %d \n", temp2->thread->tid, temp2->arrival);
+    temp2 = temp2->next;
     temp--;
   }
   return stats;
