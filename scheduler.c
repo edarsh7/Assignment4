@@ -29,13 +29,14 @@ int count = 0;
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
-// nothing yet?
+// nothing yet
 }
 
 void sim_tick() { }
 
 void sys_exec(thread_t *t) 
 {
+  count++;
   insert_at_end(t);
   sim_dispatch(head->thread);
 }
@@ -63,6 +64,8 @@ void sys_exit(thread_t *t)
 
 void io_complete(thread_t *t) 
 {
+
+
   insert_at_end(t);
   if(head != NULL)
     sim_dispatch(head->thread);
@@ -70,6 +73,7 @@ void io_complete(thread_t *t)
 
 void io_starting(thread_t *t) 
 { 
+  //nothing to do here but get time
 
 }
 
@@ -95,7 +99,6 @@ void insert_at_end(thread_t *td) {
 
   t = (struct node*)malloc(sizeof(struct node));
   t->thread = td;
-  count++;
 
   if (head == NULL) {
     head = t;
@@ -123,6 +126,6 @@ void delete_from_begin() {
   t = head->next;
   free(head);
   head = t;
-  count--;
+ 
 
 }
