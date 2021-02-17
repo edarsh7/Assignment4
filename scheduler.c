@@ -18,8 +18,13 @@ typedef struct node {
     thread_t * thread;
     struct node * next;
     int arrival;
-    int io_start;
     int completed;
+    int start1;
+    int start2;
+    int io_done;
+    int wait_time;
+    int turnaround;
+    bool first_time;
 } node;
 
 
@@ -34,6 +39,10 @@ int count = 0;
 
 void td_arrival(thread_t *);
 void td_completed(thread_t *);
+void td_running_start(thread_t *);
+void io_finished(thread_t *);
+void wait_time(thread_t *);
+void turnaround(thread_t *);
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
@@ -48,13 +57,16 @@ void sys_exec(thread_t *t)
   insert_at_end(t);
   insert_td_list(t);
   td_arrival(t);
+  td_running_start(head->thread);
   sim_dispatch(head->thread);
+
 }
 
 void sys_read(thread_t *t) 
 {
   delete_from_begin();
   if(head != NULL)
+    td_running_start(head->thread);
     sim_dispatch(head->thread);
 }
 
@@ -62,6 +74,7 @@ void sys_write(thread_t *t)
 {
   delete_from_begin();
   if(head != NULL)
+    td_running_start(head->thread);
     sim_dispatch(head->thread);
 }
 
@@ -70,24 +83,25 @@ void sys_exit(thread_t *t)
   td_completed(t);
   delete_from_begin();
   if(head != NULL)
+    td_running_start(head->thread);
     sim_dispatch(head->thread);
 }
 
 void io_complete(thread_t *t) 
 {
 
-
+  td_completed(t);
   insert_at_end(t);
   if(head != NULL)
+    td_running_start(head->thread);
     sim_dispatch(head->thread);
 }
 
 void io_starting(thread_t *t) 
 { 
-  //nothing to do here but get time
+  //nothing to do here
 
 }
-
 
 stats_t *stats() { 
   int thread_count = count;
@@ -102,16 +116,15 @@ stats_t *stats() {
   stats->turnaround_time = 8;
   stats->waiting_time = 0;
 
-  struct node *temp = td_list;
-  while(temp->next != NULL)
+  /*struct node *temp = td_list;
+  while(temp != NULL)
   {
     printf("thread %d done at %d \n", temp->thread->tid, temp->completed);
     temp = temp->next;
-  }
+  }*/
 
   return stats;
 }
-
 
 void insert_at_end(thread_t *td) {
   struct node *t, *temp;
@@ -147,7 +160,6 @@ void delete_from_begin() {
   head = t;
 }
 
-
 void insert_td_list(thread_t *td) {
 
   struct node *t, *temp;
@@ -180,6 +192,7 @@ void td_arrival(thread_t *td)
     temp = temp->next;
   }
 
+  temp->first_time = true;
   temp->arrival = sim_time();
 }
 
@@ -196,3 +209,73 @@ void td_completed(thread_t *td)
   temp->completed = sim_time();
 }
 
+void td_running_start(thread_t *td)
+{
+  struct node *temp;
+  temp = td_list;
+
+  while(temp->thread->tid != td->tid)
+  {
+    temp = temp->next;
+  }
+
+  if(temp->first_time)
+  {
+    temp->start1 = sim_time();
+    temp->first_time = false;
+  }
+  else
+  {
+    temp->start2 = sim_time();
+  }
+  
+}
+
+void io_finished(thread_t *td)
+{
+  struct node *temp;
+  temp = td_list;
+
+  while(temp->thread->tid != td->tid)
+  {
+    temp = temp->next;
+  }
+
+  temp->io_done = sim_time();
+}
+
+void wait_time(thread_t *td)
+{  
+  struct node *temp;
+  temp = td_list;
+
+  while(temp->thread->tid != td->tid)
+  {
+    temp = temp->next;
+  }
+
+  int x = temp->start1 - temp->arrival;
+  
+  if(temp->first_time == false)
+  {
+    int y = temp->start2 - temp->io_done;
+    temp->wait_time = x+y;
+  }
+  else
+  {
+    temp->wait_time = x;
+  }
+}
+
+void turnaround(thread_t *td)
+{
+  struct node *temp;
+  temp = td_list;
+
+  while(temp->thread->tid != td->tid)
+  {
+    temp = temp->next;
+  }
+
+  temp->turnaround = temp->completed - temp->arrival;
+}
