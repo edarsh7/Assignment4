@@ -292,7 +292,7 @@ void wait_time(thread_t *td)
   }
   else
   {
- 
+    temp->wait_time = (temp->start1 - temp->arrival) + (temp->start2 - temp->io_done);
   }
 }
 
