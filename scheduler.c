@@ -69,7 +69,7 @@ void sys_read(thread_t *t)
   delete_from_begin();
 
 
-  if(head != NULL)
+  if(head != NULL && t != head->thread)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
