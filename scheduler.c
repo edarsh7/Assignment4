@@ -70,6 +70,7 @@ void sys_exec(thread_t *t)
 
 void sys_read(thread_t *t) 
 {
+  flag = 0;
   delete_from_begin();
 
 
@@ -83,7 +84,7 @@ void sys_read(thread_t *t)
 
 void sys_write(thread_t *t) 
 {
-
+  flag = 0;
   delete_from_begin();
 
   if(flag == 0)
@@ -96,6 +97,7 @@ void sys_write(thread_t *t)
 
 void sys_exit(thread_t *t) 
 {
+  flag = 0;
   
   td_completed(t);
   delete_from_begin();
