@@ -31,7 +31,7 @@ typedef struct node {
 } node;
 
 
-int running = 0;
+int td_running = 0;
 struct node *head = NULL; 
 struct node *td_list = NULL;
 
@@ -64,7 +64,7 @@ void sys_exec(thread_t *t)
   insert_td_list(t);
   td_arrival(t);
 
-  if(running == 0 && head != NULL)
+  if(td_running == 0 && head != NULL)
   {
     left_queue(head->thread);
     if(head->thread == t)
@@ -77,52 +77,52 @@ void sys_exec(thread_t *t)
     }
     
     sim_dispatch(head->thread);
-    running = 1;
+    td_running = 1;
   }
 }
 
 void sys_read(thread_t *t) 
 {
-  running = 0;
+  td_running = 0;
   delete_from_begin();
   
   first_burst_done_func(t);
 
-  if(running == 0 && head != NULL)
+  if(td_running == 0 && head != NULL)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
-    running = 1;
+    td_running = 1;
   }
 }
 
 void sys_write(thread_t *t) 
 {
-  running = 0;
+  td_running = 0;
 
   delete_from_begin();
   first_burst_done_func(t);
 
-  if(running == 0 && head != NULL)
+  if(td_running == 0 && head != NULL)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
-    running = 1;
+    td_running = 1;
   }
 }
 
 void sys_exit(thread_t *t) 
 {
-  running = 0;
+  td_running = 0;
   
   td_completed(t);
   delete_from_begin();
 
-  if(running == 0 && head != NULL)
+  if(td_running == 0 && head != NULL)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
-    running = 1;
+    td_running = 1;
   }
 }
 
@@ -133,11 +133,11 @@ void io_complete(thread_t *t)
   io_completed(t);
   
 
-  if(running == 0)
+  if(td_running == 0)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
-    running = 1;
+    td_running = 1;
   }
 }
 
