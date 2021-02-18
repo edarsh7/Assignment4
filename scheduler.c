@@ -68,7 +68,7 @@ void sys_read(thread_t *t)
 {
   delete_from_begin();
 
-  printf("tid: %d  \n", t->tid)
+  printf("tid: %d  \n", t->tid);
 
   if(head != NULL)
   {
