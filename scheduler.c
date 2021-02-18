@@ -99,11 +99,11 @@ void sys_exit(thread_t *t)
   flag = 0;
   
   td_completed(t);
-  left_queue(head->thread);
   delete_from_begin();
 
   if(flag == 0 && head != NULL)
   {
+    left_queue(head->thread);
     sim_dispatch(head->thread);
     flag = 1;
   }
@@ -153,7 +153,7 @@ stats_t *stats() {
   {
     turnaround(temp->thread);
     wait_time(temp->thread);
-    printf("tid: %d  s1: %d    s2: %d   iodone: %d \n",temp->thread->tid, temp->start1, temp->start2, temp->io_done);
+    printf("tid: %d  s1: %d  arrival: %d   s2: %d   iodone: %d \n", temp->thread->tid, temp->arrival, temp->start1, temp->start2, temp->io_done);
     temp = temp->next;
   }
 
