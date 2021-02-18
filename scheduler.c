@@ -99,11 +99,11 @@ void sys_exit(thread_t *t)
   flag = 0;
   
   td_completed(t);
+  left_queue(head->thread);
   delete_from_begin();
 
   if(flag == 0 && head != NULL)
   {
-    left_queue(head->thread);
     sim_dispatch(head->thread);
     flag = 1;
   }
