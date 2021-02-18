@@ -62,6 +62,7 @@ void sys_exec(thread_t *t)
 
     left_queue(head->thread);
     sim_dispatch(head->thread);
+    sim_dispatch(head->thread);
 
 
 }
