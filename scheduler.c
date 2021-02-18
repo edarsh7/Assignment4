@@ -133,14 +133,6 @@ stats_t *stats() {
   stats_t *stats = malloc(sizeof(stats_t));
   stats->tstats = malloc(sizeof(stats_t) * thread_count);
 
-  /*
-  stats->tstats[0].tid = 1;
-  stats->tstats[0].turnaround_time = 8;
-  stats->tstats[0].waiting_time = 0;
-
-  stats->thread_count = count;
-  stats->turnaround_time = 8;
-  stats->waiting_time = 0;*/
 
   struct node *temp = td_list;
 
@@ -161,6 +153,7 @@ stats_t *stats() {
   {
     turnaround(temp->thread);
     wait_time(temp->thread);
+    printf("s1: %d    s2: %d  \n", temp->start1, temp->start2);
     temp = temp->next;
   }
 
