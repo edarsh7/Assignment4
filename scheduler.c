@@ -21,6 +21,8 @@ typedef struct node {
     int completed;
     int start1;
     int start2;
+    int first_burst_done;
+    int io_start;
     int io_done;
     int wait_time;
     int turnaround;
@@ -45,6 +47,7 @@ void io_completed(thread_t *);
 void wait_time(thread_t *);
 void turnaround(thread_t *);
 void left_queue(thread_t *);
+void first_burst_done_func(thread_t *td);
 
 void scheduler(enum algorithm algorithm, unsigned int quantum) 
 { 
@@ -81,7 +84,8 @@ void sys_read(thread_t *t)
 {
   flag = 0;
   delete_from_begin();
-
+  
+  first_burst_done_func(t);
 
   if(flag == 0 && head != NULL)
   {
@@ -94,7 +98,9 @@ void sys_read(thread_t *t)
 void sys_write(thread_t *t) 
 {
   flag = 0;
+
   delete_from_begin();
+  first_burst_done_func(t);
 
   if(flag == 0 && head != NULL)
   {
@@ -138,8 +144,17 @@ void io_complete(thread_t *t)
 }
 
 void io_starting(thread_t *t) 
-{ 
+{
+  struct node *temp;
+  temp = td_list;
 
+  while(temp->thread->tid != td->tid)
+  {
+    temp = temp->next;
+  }
+
+  temp->io_start = sim_time();
+  
 }
 
 stats_t *stats() { 
@@ -306,7 +321,7 @@ void wait_time(thread_t *td)
   }
   else
   {
-    temp->wait_time = (temp->start1 - temp->arrival) + (temp->start2 - temp->io_done);
+    temp->wait_time = (temp->start1 - temp->arrival) + (temp->start2 - temp->io_done) + (temp->first_burst_done + temp->io_start);
   }
 }
 
@@ -343,4 +358,9 @@ void left_queue(thread_t *td)
     temp->start2 = sim_time();
     temp->first_time = 2;
   }
+}
+
+void first_burst_done_func(thread_t *td)
+{
+
 }
