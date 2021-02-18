@@ -159,7 +159,7 @@ stats_t *stats() {
   {
     turnaround(temp->thread);
     wait_time(temp->thread);
-    printf("tid: %d    s1: %d     s2: %d  2_readyq's:%d\n", temp->thread->tid, temp->start1, temp->start2,temp->first_time);
+    printf("turn around :%d\n", temp->turnaround);
     temp = temp->next;
   }
 
