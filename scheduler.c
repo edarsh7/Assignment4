@@ -149,9 +149,7 @@ void io_starting(thread_t *t)
   {
     temp = temp->next;
   }
-
   temp->io_start = sim_time();
-  
 }
 
 stats_t *stats() { 
@@ -318,7 +316,7 @@ void wait_time(thread_t *td)
   }
   else
   {
-    temp->wait_time = (temp->start1 - temp->arrival -1) + (temp->start2 - temp->io_done) + (temp->io_start - temp->first_burst_done);
+    temp->wait_time = (temp->start1 - temp->arrival) + (temp->start2 - temp->io_done) + (temp->io_start - temp->first_burst_done);
   }
 }
 
