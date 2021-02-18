@@ -60,8 +60,11 @@ void sys_exec(thread_t *t)
   insert_td_list(t);
   td_arrival(t);
 
+  if(head != NULL)
+  {
   left_queue(head->thread);
   sim_dispatch(head->thread);
+  }
 }
 
 void sys_read(thread_t *t) 
@@ -105,8 +108,8 @@ void io_complete(thread_t *t)
 {
   
   insert_at_end(t);
-  
   io_completed(t);
+
   if(head != NULL)
   {
     left_queue(head->thread);
