@@ -59,7 +59,7 @@ void sys_exec(thread_t *t)
   insert_td_list(t);
   td_arrival(t);
 
-  if(t != head->thread)
+  if(t->tid != head->thread->tid)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
