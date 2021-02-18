@@ -156,6 +156,20 @@ stats_t *stats() {
     temp = temp->next;
   }
 
+  temp = td_list;
+  int x = 0;
+  while(temp != NULL)
+  {
+    stats->tstats[temp->thread->tid - 1].tid = temp->thread->tid;
+    stats->tstats[temp->thread->tid - 1].turnaround_time = temp->turnaround;
+    stats->tstats[temp->thread->tid - 1].waiting_time = 0; 
+    x = x + temp->turnaround;
+  }
+  stats->thread_count = count;
+  stats->turnaround_time = x/count;
+  stats->waiting_time = 0;
+
+
 
   return stats;
 }
