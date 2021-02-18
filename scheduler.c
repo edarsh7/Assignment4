@@ -65,7 +65,7 @@ void sys_exec(thread_t *t)
     left_queue(head->thread);
     if(head->thread == t)
     {
-      head-t>sart1 = sim_time();
+      head->start1 = sim_time();
     }
     else
     {
