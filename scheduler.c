@@ -127,16 +127,29 @@ stats_t *stats() {
   stats_t *stats = malloc(sizeof(stats_t));
   stats->tstats = malloc(sizeof(stats_t) * thread_count);
 
+  /*
   stats->tstats[0].tid = 1;
   stats->tstats[0].turnaround_time = 8;
   stats->tstats[0].waiting_time = 0;
 
   stats->thread_count = thread_count;
   stats->turnaround_time = 8;
-  stats->waiting_time = 0;
+  stats->waiting_time = 0;*/
 
   struct node *temp = td_list;
 
+  int i = 0;
+  while(temp != NULL)
+  {
+    if(i == 0)
+    {
+      temp = temp->next;
+      i = 1;
+      continue;
+    }
+    temp->start1++;
+    temp = temp->next;
+  }
   
   while(temp != NULL)
   {
@@ -261,12 +274,11 @@ void wait_time(thread_t *td)
   
   if(temp->first_time == false)
   {
-    int y = temp->start2 - temp->io_done;
-    temp->wait_time = x+y-1;
+    temp->wait_time = temp->start1 - temp->arrival;
   }
   else
   {
-    temp->wait_time = x;
+    
   }
 }
 
