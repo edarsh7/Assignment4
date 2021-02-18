@@ -125,11 +125,6 @@ void io_complete(thread_t *t)
   insert_at_end(t);
   io_completed(t);
 
-  if(head->thread == t)
-  {
-    head->start2++;
-  }
-
   if(flag == 0)
   {
     left_queue(head->thread);
