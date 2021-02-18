@@ -27,6 +27,7 @@ typedef struct node {
     int first_time;
 } node;
 
+
 int flag = 0;
 struct node *head = NULL; 
 struct node *td_list = NULL;
@@ -62,6 +63,10 @@ void sys_exec(thread_t *t)
   if(flag == 0 && head != NULL)
   {
     left_queue(head->thread);
+    if(head->thread == t)
+    {
+      head->start1 == sim_time();
+    }
     sim_dispatch(head->thread);
     flag = 1;
   }
