@@ -72,7 +72,7 @@ void sys_exec(thread_t *t)
     }
     else
     {
-      head->start1++;
+      //head->start1++;
     }
     
     sim_dispatch(head->thread);
