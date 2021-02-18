@@ -27,7 +27,7 @@ typedef struct node {
     int first_time;
 } node;
 
-
+int flag = 0;
 struct node *head = NULL; 
 struct node *td_list = NULL;
 
@@ -59,9 +59,13 @@ void sys_exec(thread_t *t)
   insert_td_list(t);
   td_arrival(t);
 
+  if(flag == 0)
+  {
+    left_queue(head->thread);
+    sim_dispatch(head->thread);
+    flag = 1;
+  }
 
-  left_queue(head->thread);
-  sim_dispatch(head->thread);
 }
 
 void sys_read(thread_t *t) 
@@ -69,10 +73,11 @@ void sys_read(thread_t *t)
   delete_from_begin();
 
 
-  if(head != NULL)
+  if(flag == 0)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
+    flag = 1;
   }
 }
 
@@ -81,10 +86,11 @@ void sys_write(thread_t *t)
 
   delete_from_begin();
 
-  if(head != NULL)
+  if(flag == 0)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
+    flag = 1;
   }
 }
 
@@ -94,10 +100,11 @@ void sys_exit(thread_t *t)
   td_completed(t);
   delete_from_begin();
 
-  if(head != NULL)
+  if(flag == 0)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
+    flag = 1;
   }
 }
 
@@ -107,10 +114,11 @@ void io_complete(thread_t *t)
   insert_at_end(t);
   io_completed(t);
 
-  if(head != NULL)
+  if(flag == 0)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
+    flag = 1;
   }
 }
 
