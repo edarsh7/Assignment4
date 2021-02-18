@@ -170,8 +170,6 @@ stats_t *stats() {
   stats->thread_count = count;
   stats->turnaround_time = x/count;
   stats->waiting_time = y/count;
-h
-
 
   return stats;
 }
