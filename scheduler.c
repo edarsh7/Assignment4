@@ -8,7 +8,7 @@
 #include "simulator.h"
 #include "scheduler.h"
 
-typedef enum { false, true } bool;
+
 
 /*
  code for list implementation borrowed from https://www.programmingsimplified.com/c/data-structures/c-program-implement-linked-list
@@ -24,7 +24,7 @@ typedef struct node {
     int io_done;
     int wait_time;
     int turnaround;
-    bool first_time;
+    int first_time;
 } node;
 
 
@@ -231,7 +231,7 @@ void td_arrival(thread_t *td)
     temp = temp->next;
   }
 
-  temp->first_time = true;
+  temp->first_time = 0;
   temp->arrival = sim_time();
 }
 
@@ -301,10 +301,10 @@ void left_queue(thread_t *td)
     temp = temp->next;
   }
 
-  if(temp->first_time == true)
+  if(temp->first_time == 0)
   {
     temp->start1 = sim_time();
-    temp->first_time = false;
+    temp->first_time = 1;
   }
   else
   {
