@@ -71,7 +71,7 @@ void sys_read(thread_t *t)
 
   if(head != NULL)
   {
-    left_queue(t);
+    left_queue(head->thread);
     sim_dispatch(head->thread);
   }
 }
@@ -84,7 +84,7 @@ void sys_write(thread_t *t)
 
   if(head != NULL)
   {
-    left_queue(t);
+    left_queue(head->thread);
     sim_dispatch(head->thread);
   }
 }
