@@ -233,7 +233,7 @@ void delete_from_begin() {
   
 
   t = head->next;
-  free(head);
+  //free(head);
   head = t;
 }
 
