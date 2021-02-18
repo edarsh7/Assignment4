@@ -65,7 +65,7 @@ void sys_exec(thread_t *t)
     left_queue(head->thread);
     if(head->thread == t)
     {
-      head->start1 = sim_time();
+      head-t>sart1 = sim_time();
     }
     else
     {
@@ -124,6 +124,10 @@ void io_complete(thread_t *t)
   
   insert_at_end(t);
   io_completed(t);
+  if(t == head->thread)
+  {
+    head->start2++;
+  }
 
   if(flag == 0)
   {
