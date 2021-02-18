@@ -69,10 +69,11 @@ void sys_read(thread_t *t)
   delete_from_begin();
 
 
-
+  if(head != NULL)
+  {
     left_queue(t);
     sim_dispatch(head->thread);
-
+  }
 }
 
 void sys_write(thread_t *t) 
@@ -81,9 +82,11 @@ void sys_write(thread_t *t)
   delete_from_begin();
 
 
+  if(head != NULL)
+  {
     left_queue(t);
     sim_dispatch(head->thread);
-
+  }
 }
 
 void sys_exit(thread_t *t) 
@@ -92,9 +95,11 @@ void sys_exit(thread_t *t)
   td_completed(t);
   delete_from_begin();
   
+  if(head != NULL)
+  {
     left_queue(head->thread);
     sim_dispatch(head->thread);
-
+  }
 }
 
 void io_complete(thread_t *t) 
@@ -103,10 +108,11 @@ void io_complete(thread_t *t)
   insert_at_end(t);
   
   io_completed(t);
-
+  if(head != NULL)
+  {
     left_queue(head->thread);
     sim_dispatch(head->thread);
-
+  }
 }
 
 void io_starting(thread_t *t) 
