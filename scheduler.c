@@ -66,26 +66,26 @@ void sys_exec(thread_t *t)
 
 void sys_read(thread_t *t) 
 {
-  
+  left_queue(head->thread);
   delete_from_begin();
 
 
   if(head != NULL)
   {
-    left_queue(head->thread);
+    
     sim_dispatch(head->thread);
   }
 }
 
 void sys_write(thread_t *t) 
 {
-  
+  left_queue(head->thread);
   delete_from_begin();
 
 
   if(head != NULL)
   {
-    left_queue(head->thread);
+    
     sim_dispatch(head->thread);
   }
 }
@@ -94,11 +94,12 @@ void sys_exit(thread_t *t)
 {
   
   td_completed(t);
+  left_queue(head->thread);
   delete_from_begin();
   
   if(head != NULL)
   {
-    left_queue(head->thread);
+    
     sim_dispatch(head->thread);
   }
 }
@@ -132,7 +133,7 @@ stats_t *stats() {
   stats->tstats[0].turnaround_time = 8;
   stats->tstats[0].waiting_time = 0;
 
-  stats->thread_count = thread_count;
+  stats->thread_count = count;
   stats->turnaround_time = 8;
   stats->waiting_time = 0;*/
 
@@ -154,9 +155,10 @@ stats_t *stats() {
   while(temp != NULL)
   {
     turnaround(temp->thread);
-    printf("tid: %d    s1: %d    s2: %d   io_done: %d \n", temp->thread->tid,temp->start1, temp->start2, temp->io_done);
+    wait_time(temp->thread);
     temp = temp->next;
   }
+
 
   return stats;
 }
@@ -270,15 +272,10 @@ void wait_time(thread_t *td)
     temp = temp->next;
   }
 
-  int x = temp->start1 - temp->arrival;
-  
-  if(temp->first_time == false)
+  if(temp->io_done == 0)
   {
     temp->wait_time = temp->start1 - temp->arrival;
-  }
-  else
-  {
-    
+    return;
   }
 }
 
