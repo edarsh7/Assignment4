@@ -54,17 +54,14 @@ void sim_tick() { }
 
 void sys_exec(thread_t *t) 
 {
-
   count++;
   insert_at_end(t);
   insert_td_list(t);
   td_arrival(t);
 
-  if(head != NULL)
-  {
   left_queue(head->thread);
   sim_dispatch(head->thread);
-  }
+
 }
 
 void sys_read(thread_t *t) 
@@ -119,8 +116,11 @@ void io_complete(thread_t *t)
 
 void io_starting(thread_t *t) 
 { 
-  //nothing to do here
-
+  if(head != NULL)
+  {
+    left_queue(head->thread);
+    sim_dispatch(head->thread);
+  }
 }
 
 stats_t *stats() { 
