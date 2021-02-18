@@ -60,7 +60,7 @@ void sys_exec(thread_t *t)
   insert_td_list(t);
   td_arrival(t);
 
-  left_queue(t);
+  left_queue(head->thread);
   sim_dispatch(head->thread);
 }
 
