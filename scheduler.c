@@ -62,10 +62,6 @@ void sys_exec(thread_t *t)
   if(flag == 0 && head != NULL)
   {
     left_queue(head->thread);
-    if(head->thread == t)
-    {
-      head->start1--;
-    }
     sim_dispatch(head->thread);
     flag = 1;
   }
