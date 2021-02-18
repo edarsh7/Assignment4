@@ -148,7 +148,7 @@ void io_starting(thread_t *t)
   struct node *temp;
   temp = td_list;
 
-  while(temp->thread->tid != td->tid)
+  while(temp->thread->tid != t->tid)
   {
     temp = temp->next;
   }
@@ -362,5 +362,13 @@ void left_queue(thread_t *td)
 
 void first_burst_done_func(thread_t *td)
 {
+  struct node *temp;
+  temp = td_list;
 
+  while(temp->thread->tid != td->tid)
+  {
+    temp = temp->next;
+  }
+
+  temp->first_burst_done = sim_time();
 }
