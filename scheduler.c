@@ -130,10 +130,7 @@ void io_complete(thread_t *t)
   
   insert_at_end(t);
   io_completed(t);
-  if(t == head->thread)
-  {
-    head->start2++;
-  }
+  
 
   if(flag == 0)
   {
