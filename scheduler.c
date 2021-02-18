@@ -90,7 +90,7 @@ void sys_write(thread_t *t)
     sim_dispatch(head->thread);
   }
 }
-
+idk
 void sys_exit(thread_t *t) 
 {
   
