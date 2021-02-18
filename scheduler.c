@@ -11,7 +11,8 @@
 
 
 /*
- code for list implementation borrowed from https://www.programmingsimplified.com/c/data-structures/c-program-implement-linked-list
+ altered code for list implementation borrowed 
+ from https://www.programmingsimplified.com/c/data-structures/c-program-implement-linked-list
 */
 //=-----------------------------=
 typedef struct node {
@@ -30,7 +31,7 @@ typedef struct node {
 } node;
 
 
-int flag = 0;
+int running = 0;
 struct node *head = NULL; 
 struct node *td_list = NULL;
 
@@ -40,9 +41,9 @@ void delete_from_begin();
 int count = 0;
 //=-----------------------------=
 
+
 void td_arrival(thread_t *);
 void td_completed(thread_t *);
-
 void io_completed(thread_t *);
 void wait_time(thread_t *);
 void turnaround(thread_t *);
@@ -63,7 +64,7 @@ void sys_exec(thread_t *t)
   insert_td_list(t);
   td_arrival(t);
 
-  if(flag == 0 && head != NULL)
+  if(running == 0 && head != NULL)
   {
     left_queue(head->thread);
     if(head->thread == t)
@@ -76,52 +77,52 @@ void sys_exec(thread_t *t)
     }
     
     sim_dispatch(head->thread);
-    flag = 1;
+    running = 1;
   }
 }
 
 void sys_read(thread_t *t) 
 {
-  flag = 0;
+  running = 0;
   delete_from_begin();
   
   first_burst_done_func(t);
 
-  if(flag == 0 && head != NULL)
+  if(running == 0 && head != NULL)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
-    flag = 1;
+    running = 1;
   }
 }
-//idk
+
 void sys_write(thread_t *t) 
 {
-  flag = 0;
+  running = 0;
 
   delete_from_begin();
   first_burst_done_func(t);
 
-  if(flag == 0 && head != NULL)
+  if(running == 0 && head != NULL)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
-    flag = 1;
+    running = 1;
   }
 }
 
 void sys_exit(thread_t *t) 
 {
-  flag = 0;
+  running = 0;
   
   td_completed(t);
   delete_from_begin();
 
-  if(flag == 0 && head != NULL)
+  if(running == 0 && head != NULL)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
-    flag = 1;
+    running = 1;
   }
 }
 
@@ -132,11 +133,11 @@ void io_complete(thread_t *t)
   io_completed(t);
   
 
-  if(flag == 0)
+  if(running == 0)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
-    flag = 1;
+    running = 1;
   }
 }
 
@@ -200,6 +201,10 @@ stats_t *stats() {
   return stats;
 }
 
+
+//    ALTERED LIST CODE BORROWED FROM SAME LINK AS ABOVE  
+// https://www.programmingsimplified.com/c/data-structures/c-program-implaement-linked-list
+//==================================================================
 void insert_at_end(thread_t *td) {
   struct node *t, *temp;
 
@@ -256,9 +261,13 @@ void insert_td_list(thread_t *td) {
   temp->next = t;
   t->next   = NULL;
 }
-
-//--------------------------------------------------------------------
 //==================================================================
+//        END OF ALTERED BORROWED CODE
+
+
+
+
+//tracks arrival time of thread td
 void td_arrival(thread_t *td)
 {
   struct node *temp;
@@ -273,6 +282,8 @@ void td_arrival(thread_t *td)
   temp->arrival = sim_time();
 }
 
+
+//tracks thread that completed; thread td has exited through exit_sys()
 void td_completed(thread_t *td)
 {
   struct node *temp;
@@ -286,6 +297,8 @@ void td_completed(thread_t *td)
   temp->completed = sim_time();
 }
 
+
+//tracks when io has been completed for thread td
 void io_completed(thread_t *td)
 {
   struct node *temp;
@@ -299,6 +312,8 @@ void io_completed(thread_t *td)
   temp->io_done = sim_time();
 }
 
+
+//calculates wait time as WA = time on ready queue + time on io wait queue + time on ready queue after io completion
 void wait_time(thread_t *td)
 {  
   struct node *temp;
@@ -320,6 +335,8 @@ void wait_time(thread_t *td)
   }
 }
 
+
+//calculates turnaround time as TA = completion - arrival
 void turnaround(thread_t *td)
 {
   struct node *temp;
@@ -333,6 +350,8 @@ void turnaround(thread_t *td)
   temp->turnaround = temp->completed - temp->arrival + 1;
 }
 
+
+//Tracks when thread td has left the ready queue
 void left_queue(thread_t *td)
 {
   struct node *temp;
@@ -355,6 +374,8 @@ void left_queue(thread_t *td)
   }
 }
 
+
+//Function that gets the end time of thread td on cpu
 void first_burst_done_func(thread_t *td)
 {
   struct node *temp;
