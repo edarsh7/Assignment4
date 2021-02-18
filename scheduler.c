@@ -67,6 +67,11 @@ void sys_exec(thread_t *t)
     {
       head->start1 == sim_time();
     }
+    else
+    {
+      head->start++;
+    }
+    
     sim_dispatch(head->thread);
     flag = 1;
   }
