@@ -59,7 +59,7 @@ void sys_exec(thread_t *t)
   insert_td_list(t);
   td_arrival(t);
 
-  if(flag == 0)
+  if(flag == 0 && head != NULL)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
@@ -73,7 +73,7 @@ void sys_read(thread_t *t)
   delete_from_begin();
 
 
-  if(flag == 0)
+  if(flag == 0 && head != NULL)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
@@ -86,7 +86,7 @@ void sys_write(thread_t *t)
   flag = 0;
   delete_from_begin();
 
-  if(flag == 0)
+  if(flag == 0 && head != NULL)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
