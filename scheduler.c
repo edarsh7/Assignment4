@@ -152,7 +152,6 @@ stats_t *stats() {
   {
     turnaround(temp->thread);
     wait_time(temp->thread);
-    printf("turn around :%d\n", temp->turnaround);
     temp = temp->next;
   }
 
