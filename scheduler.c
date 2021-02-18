@@ -65,7 +65,6 @@ void sys_exec(thread_t *t)
     sim_dispatch(head->thread);
     flag = 1;
   }
-
 }
 
 void sys_read(thread_t *t) 
@@ -102,7 +101,7 @@ void sys_exit(thread_t *t)
   td_completed(t);
   delete_from_begin();
 
-  if(flag == 0)
+  if(flag == 0 && head != NULL)
   {
     left_queue(head->thread);
     sim_dispatch(head->thread);
