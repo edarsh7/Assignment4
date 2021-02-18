@@ -150,7 +150,7 @@ stats_t *stats() {
     temp->start1++;
     temp = temp->next;
   }
-  
+  temp = td_list;
   while(temp != NULL)
   {
     turnaround(temp->thread);
