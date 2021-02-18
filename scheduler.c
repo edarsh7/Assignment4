@@ -94,7 +94,7 @@ void sys_read(thread_t *t)
     flag = 1;
   }
 }
-
+//idk
 void sys_write(thread_t *t) 
 {
   flag = 0;
