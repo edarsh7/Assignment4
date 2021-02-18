@@ -94,8 +94,7 @@ void sys_exit(thread_t *t)
   
   td_completed(t);
   delete_from_begin();
-  
-  left_queue(head->thread);
+
   if(head != NULL)
   {
     sim_dispatch(head->thread);
